@@ -1,0 +1,36 @@
+## input
+# 3 # number of participants
+# 3 3 6 # spots on a die
+# 2 2 2
+# 6 2 5
+
+## question
+# print the biggest reward
+# rule 1. if three spots are the same, reward = 10000+(spot)*1000
+# rule 2. if two spots are same, reward = 1000+(same spot)*100
+# rule 3. if three spots are different, reward = (biggest spot)*100
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+n=int(input())
+a=list()
+for i in range(n):
+    a.append(list(map(int, input().split())))
+
+money=0
+for i in range(n):
+    if a[i][0]==a[i][1] and a[i][0]==a[i][2] and a[i][1]==a[i][2]:
+        tmp=10000+(a[i][0]*1000)
+    elif a[i][0]==a[i][1]:
+        tmp=1000+(a[i][0]*100)
+    elif a[i][0]==a[i][2]:
+        tmp=1000+(a[i][0]*100)
+    elif a[i][1]==a[i][2]:
+        tmp=1000+(a[i][1]*100)
+    else:
+        tmp=max(a[i])*100
+    if money < tmp:
+        money=tmp
+
+print(money)
