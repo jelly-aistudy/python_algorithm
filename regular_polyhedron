@@ -1,0 +1,22 @@
+## input
+# 4 6
+
+## question
+# with two dices of regular polyhedron (n, m number of sides) 
+# print sum of two sides which has the highest probability
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+n,m=map(int, input().split())
+ans=list(0 for _ in range(n+m+1))
+
+for i in range(n):
+    for j in range(m):
+        sum=i+1+j+1
+        ans[sum]+=1
+
+a=max(ans)
+for idx, k in enumerate(ans):
+    if k==a:
+        print(idx, end=" ")
