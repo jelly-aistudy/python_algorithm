@@ -1,0 +1,30 @@
+## input
+#10 # number of students
+#45 73 66 87 92 67 75 79 75 80 # math scores (students number : 1 from beginning)
+
+## question
+# print student's number whose score is most close to mean
+# if there are multiple answers, select higher score first, and then smaller student's number
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+n=int(input())
+a=list(map(int, input().split()))
+avg=round(sum(a)/n)
+ans=a[0]
+dif=abs(avg-ans)
+idx=0
+for i in range(len(a)):
+    tmp=abs(avg-a[i])
+    if tmp<dif:
+        dif=tmp
+        ans=a[i]
+        idx=i
+    elif tmp==dif:
+        if ans<a[i]:
+            ans=a[i]
+            idx=i
+        elif ans==a[i]:
+            continue
+print(avg, idx+1)
