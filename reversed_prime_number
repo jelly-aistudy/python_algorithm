@@ -1,0 +1,31 @@
+## input
+# 5 # number of natural number
+# 32 55 62 3700 250 # natural number
+
+## question
+# if reversed natural number is prime number, print it. 
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+n=int(input())
+a=list(map(int, input().split()))
+
+def reverse(x):
+    newStr=""
+    for i in str(x):
+        newStr=i+newStr
+    return int(newStr)
+
+def isPrime(x):
+    if x == 1:
+        return False
+    for i in range(2, x//2):
+        if x%i==0:
+            return False
+    return True
+
+for x in a:
+    x=reverse(x)
+    if isPrime(x):
+        print(x, end=" ")
