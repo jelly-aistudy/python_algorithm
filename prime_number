@@ -1,0 +1,28 @@
+## input
+# 20
+
+## question
+# print number of prime number of n
+# Eratosthenes' sieve
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+n=int(input())
+cnt=[1]*(n+1)
+cnt[0]=0
+cnt[1]=0
+sum=0
+
+for idx, x in enumerate(cnt):
+    if x==1:
+        mul=2
+        while mul*idx < n+1:
+            cnt[mul*idx]=0
+            mul+=1
+
+for x in cnt:
+    if x==1:
+        sum+=1
+
+print(sum)
