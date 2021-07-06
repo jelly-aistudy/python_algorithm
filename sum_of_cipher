@@ -1,0 +1,29 @@
+## input
+# 3
+# 125 15232 97
+
+## question
+# print number with maximum sum of ciphers. If same, print first one
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+n=int(input())
+a=list(map(int, input().split()))
+
+def digit_sum(x):
+    total=0
+    while x>0:
+        nam=x%10
+        x=x//10
+        total+=nam
+    return total
+
+tmp=0
+for x in a:
+    b=digit_sum(x)
+    if tmp < b:
+        tmp=b
+        res=x
+        
+print(res)
