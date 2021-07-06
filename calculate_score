@@ -1,0 +1,27 @@
+## input
+# 10 # number of questions
+# 1 0 1 1 1 0 0 1 1 0 # grading. 0 = wrong, 1 = correct
+
+## question
+# if correct, add one point.
+# if correct continuously for kth time, add kth point.
+# print total score
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+n=int(input())
+check=list(map(int, input().split()))
+score=[0]*n
+for i in range(n):
+    if i==0:
+        score[0]=1 if check[i]==1 else 0
+    else:
+        if check[i]==1:
+            if score[i-1]!=0:
+                score[i]=score[i-1]+1
+            else:
+                score[i]=1
+print(sum(score))
+
+
