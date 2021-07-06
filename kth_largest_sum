@@ -1,0 +1,22 @@
+## input 
+#10 3 # n,k  
+#13 15 34 23 45 65 33 11 26 42 # numbers on card (n)
+
+## question
+# select three cards and sum. print kth biggest sum of all
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+n,k=map(int, input().split())
+a=list(map(int, input().split()))
+sum=set()
+for idx, val in enumerate(a[:n-1]):
+    for idx2, val2 in enumerate(a[:n]):
+        for idx3, val3 in enumerate(a[:n+1]):
+            if(idx != idx2 and idx2 != idx3 and idx != idx3):
+                sum.add(val+val2+val3)
+
+sum=list(sum)
+sum.sort(reverse=True)
+print(sum[k-1])
