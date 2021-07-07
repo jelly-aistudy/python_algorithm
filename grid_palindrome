@@ -8,6 +8,7 @@
 # 1 2 2 2 2 1 5
 
 # question
+# with 7x7 grid, find out the number of five-digit palindrom in rows and columns
 
 import sys
 sys.stdin=open("input.txt","rt")
