@@ -1,0 +1,25 @@
+## input
+# 5 10 # section [a,b]
+# 9 13
+# 1 2
+# 3 4
+# 5 6
+# 1 2
+# 3 4
+# 5 6
+# 1 20
+# 1 20
+
+## question
+# cards from 1 to 20 is listed. If section [a,b] is given, reverse card order in the section.
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+card=list(_ for _ in range(1, 21))
+for i in range(10):
+    a, b=map(int, input().split())
+    c=card[a-1:b]
+    card=card[0:a-1]+c[::-1]+card[b:]
+for i in card:
+    print(i, end=' ')
