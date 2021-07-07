@@ -1,0 +1,35 @@
+## input
+# 5
+# 5 3 7 2 3
+# 3 7 1 6 1
+# 7 2 5 3 4
+# 4 3 6 4 1
+# 8 7 3 5 2
+
+## question
+# find the number of mountain top.
+# mountain top is defined as the number which is larger compared to up, left, right, down number
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+dx=[1,0,-1,0]
+dy=[0,1,0,-1]
+
+n=int(input())
+a=[list(map(int, input().split())) for _ in range(n)]
+cnt=0
+
+for i in range(n):
+    for j in range(n):
+        flag=True
+        for k in range(4):
+            xx=i+dx[k]
+            yy=j+dy[k]
+            if 0<=xx<n and 0<=yy<n and a[xx][yy]>=a[i][j]:
+                flag=False
+                break
+        if flag==True:
+            cnt+=1
+
+print(cnt)
