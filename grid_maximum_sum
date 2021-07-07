@@ -1,0 +1,36 @@
+## input
+# 5
+# 10 13 10 12 15
+# 12 39 30 23 11
+# 11 25 50 53 15
+# 19 27 29 37 27
+# 19 13 30 13 19
+
+## question
+# with nxn grid, find out the maximum sum among each row's sum / each column's sum / each diagonal line's sum
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+n=int(input())
+a=[list(map(int, input().split())) for _ in range(n)]
+maxSum=0
+horSum=0 # row
+verSum=0 # column
+dia1=0
+dia2=0
+for i in range(n):
+    horTmp=0
+    verTmp=0
+    for j in range(n):
+        horTmp+=a[i][j]
+        verTmp+=a[j][i]
+        if i==j:
+            dia1+=a[i][j]
+        if i+j+1==n:
+            dia2+=a[i][j]
+    if horSum<=horTmp: 
+        horSum=horTmp
+    if verSum<=verTmp: 
+        verSum=verTmp
+print(max(horSum, verSum, dia1, dia2))
