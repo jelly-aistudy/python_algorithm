@@ -1,0 +1,31 @@
+## input
+# 8 3 # n,m
+# 1 2 1 3 1 1 1 2
+
+## question
+# sequence of numbers n is given. count number of cases in which summation from ith number to jth number is equal to m
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+n,m=map(int, input().split())
+a=list(map(int, input().split()))
+count=0
+lt=0 # left index
+rt=1 # right index
+tot=a[0]
+while True:
+    if tot<m:
+        if rt<n:
+            tot+=a[rt]
+            rt+=1
+        else:
+            break
+    elif tot==m:
+        count+=1
+        tot-=a[lt]
+        lt+=1
+    else:
+        tot-=a[lt]
+        lt+=1
+print(count)
