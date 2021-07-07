@@ -1,0 +1,24 @@
+## input
+# 5
+# level
+# moon
+# abcba
+# soon
+# gooG
+
+## question
+# figure out whether given word is palindrome or not
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+n=int(input())
+for i in range(n):
+    a=input().lower()
+    b=""
+    for j in a:
+        b=j+b
+    if a==b:
+        print("#%d YES" %(i+1))
+    else:
+        print("#%d NO" %(i+1))
