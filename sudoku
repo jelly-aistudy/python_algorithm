@@ -1,0 +1,59 @@
+## input
+# 1 4 3 6 2 8 5 7 9
+# 5 7 2 1 3 9 4 6 8
+# 9 8 6 7 5 4 2 3 1
+# 3 9 1 5 4 2 7 8 6
+# 4 6 8 9 1 7 3 5 2
+# 7 2 5 8 6 3 9 1 4
+# 2 3 7 4 8 1 6 9 5
+# 6 1 9 2 7 5 8 4 3
+# 8 5 4 3 9 6 1 2 7
+
+## question
+# print "YES" if given sudoku is correct, else "NO"
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+a=[list(map(int, input().split())) for _ in range(9)]
+answer="YES"
+
+for i in range(9):
+    chRow=[0]*10
+    chCol=[0]*10
+    for j in range(9):
+        if chRow[a[i][j]]==1 or chCol[a[j][i]]==1:
+              answer="NO"
+              break
+        elif chRow[a[i][j]]==0:
+            chRow[a[i][j]]=1
+        elif chCol[a[j][i]]==0:
+            chCol[a[j][i]]=1
+    if answer=="NO":
+        break
+
+if answer=="YES":
+    x=0
+    y=0
+    while True:
+        if answer=="NO":
+            break
+        ch=[0]*10
+        for i in range(x, x+3):
+            for j in range(y, y+3):
+                if ch[a[i][j]]==1:
+                    answer="NO"
+                    break
+                else:
+                    ch[a[i][j]]=1
+            if answer=="NO":
+                break
+        if y<6:
+            y+=3
+        elif y==6 and x!=6:
+            y=0
+            x+=3
+        elif x==6:
+            break
+    
+print(answer)
