@@ -1,0 +1,71 @@
+## input
+5 3 # n,c
+1 # coordinate of stable
+2
+8
+4
+9
+
+## question
+there are c horses and they don't like to be close to each other.
+for each stable, only one horse can be put.
+find out maximum closest distance of two horses. 
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+## solution 1
+n,c=map(int, input().split())
+a=list()
+for _ in range(n):
+    a.append(int(input()))
+a.sort()
+
+# not coordinates, but distance
+lt=1 
+rt=max(a)
+res=0
+
+while lt<=rt:
+    mid=(lt+rt)//2 
+    cnt=c 
+    x=0 
+    for i in range(len(a)):        
+        if i==0:
+            cnt-=1
+        elif (a[i]-a[x])>=mid:
+            cnt-=1
+            x=i          
+    if cnt>0:
+        rt=mid-1
+    elif cnt<=0:
+        lt=mid+1
+        res=mid
+print(res)
+        
+## solution 2
+def Count(len):
+    cnt=1 
+    ep=Line[0] 
+    for i in range(1,n):
+        if Line[i]-ep>=len:
+            cnt+=1
+            ep=Line[i]
+    return cnt 
+
+n,c=map(int, input().split())
+Line=[]
+for _ in range(n):
+    tmp=int(input())
+    Line.append(tmp)
+Line.sort()
+lt=1
+rt=Line[n-1]
+
+while lt<=rt:
+    mid=(lt+rt)//2
+    if Count(mid)>=c: 
+        res=mid
+        lt=mid+1 
+    else:
+        rt=mid-1
