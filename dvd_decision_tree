@@ -1,0 +1,42 @@
+## input
+9 3 # n,m
+1 2 3 4 5 6 7 8 9
+
+## question
+# n is number of songs and m is number of dvds.
+# length of each songs is presented in the second line.
+# find out minimum dvd size.
+
+import sys
+sys.stdin=open("input.txt","rt")
+n,m=map(int, input().split())
+
+songs=list(map(int, input().split()))
+
+def Count(capacity):
+    tmpSum=0 # length of songs in one dvd
+    cnt=0 # number of dvd
+    for i in range(n):
+        if tmpSum+songs[i]<capacity:
+            tmpSum+=songs[i]
+        elif tmpSum+songs[i]==capacity:
+            cnt+=1
+            tmpSum=0
+        else:
+            cnt+=1
+            tmpSum=songs[i]
+    if tmpSum!=0:
+        cnt+=1
+    return cnt
+
+lt=1
+rt=sum(songs)
+while lt<=rt:
+    mid=(lt+rt)//2
+    if Count(mid)<=m: 
+        res=mid
+        rt=mid-1
+    else:
+        lt=mid+1
+
+print(res)
