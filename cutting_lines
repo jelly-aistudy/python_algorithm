@@ -1,0 +1,56 @@
+## input
+4 11 # k, n
+802
+743
+457
+539
+
+## question
+make at least n numbers line by cutting k lines. cutted lines' lengths are maximum and all same.
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+## solution 1
+k,n=map(int, input().split())
+a=list()
+sum=0
+for _ in range(k):
+    tmp=int(input())
+    a.append(tmp)
+    sum+=tmp
+max=sum//n
+while True:
+    cnt=0
+    for i in range(k):
+        cnt+=a[i]//max
+    if cnt==n:
+        print(max)
+        break
+    elif cnt<n:
+        max-=1
+        
+## solution 2
+def Count(len):
+    cnt=0
+    for x in Line:
+        cnt+=(x//len)
+    return cnt
+
+k,n=map(int, input().split())
+Line=[]
+res=0
+largest=0
+for i in range(k):
+    tmp=int(input())
+    Line.append(tmp)
+    largest=max(largest, tmp)
+lt=1
+rt=largest
+while lt<=rt:
+    mid=(lt+rt)//2
+    if Count(mid)>=n: 
+        res=mid
+        lt=mid+1
+    else:
+        rt=mid-1
