@@ -1,0 +1,23 @@
+## input
+10 # length of warehose (vertical length)
+69 42 68 76 40 87 14 65 76 81 # L numbers
+50 # height adjust numbers
+
+## question
+After m height adjustments, print out the difference between the heighest and the lowest
+Height adjustment means moving one box from the heighest to the lowest
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+length=int(input())
+num=list(map(int, input().split()))
+tot=int(input())
+
+for i in range(tot):
+    num.sort()
+    num[0]+=1
+    num[length-1]-=1
+
+num.sort()
+print(num[length-1]-num[0])
