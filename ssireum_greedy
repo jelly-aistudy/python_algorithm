@@ -1,0 +1,31 @@
+## input
+5 # n
+172 67 # height, weight
+183 65
+180 70
+170 72
+181 60
+
+## question
+To be a ssiruem player, one should be heigher or heavier than other candidates (1:1 comparison)
+Find out the maximum number of players selected
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+n=int(input())
+cand=[]
+for _ in range(n):
+    h,w=map(int, input().split())
+    cand.append((h,w))
+cand.sort()
+
+cnt=1
+for i in range(n):
+    for j in range(i+1, n):
+        if cand[i][1]<=cand[j][1]:
+            break
+        elif j==n-1 and cand[i][1]>cand[j][1]:
+            cnt+=1
+print(cnt)
+        
