@@ -1,0 +1,30 @@
+## input
+352+*9-
+
+## question
+Calculate the given postfix expression
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+a=input()
+num=[]
+temp=0
+
+for x in a:
+    if x.isdecimal():
+        num.append(x)
+    else:
+        a=int(num.pop())
+        b=int(num.pop())
+        if x=='+':
+            temp=a+b
+        elif x=='-':
+            temp=b-a
+        elif x=='*':
+            temp=a*b
+        else:
+            temp=b/a
+        num.append(temp)
+
+print(num[0])
