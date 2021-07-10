@@ -1,0 +1,27 @@
+## input
+()(((()())(())()))(())
+
+## question
+Layer several sticks together, without overlapping endpoints together. 
+Laser will cut given sticks and be expressed as '()'
+Sticks will be expressed with '(' and ')'
+Find out how many sticks will be returend after laser cutting
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+a=str(input())
+stack=[]
+cnt=0
+
+for i in range(len(a)):
+    if a[i]=='(':
+        stack.append(a[i])
+    else:
+        if a[i-1]=='(': # laser
+            stack.pop()
+            cnt+=len(stack)
+        elif a[i-1]==')': # one stick end
+            stack.pop()
+            cnt+=1
+print(cnt)
