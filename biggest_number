@@ -1,0 +1,28 @@
+## input
+5276823 3
+
+## question
+delete n numbers from the given number and make the biggest number
+
+import sys
+from collections import deque
+sys.stdin=open("input.txt","rt")
+
+num, n=map(int, input().split())
+num=str(num)
+total=len(num)-n
+ans=[]
+for i in range(len(num)):
+    if len(ans)==0:
+        ans.append(num[i])
+        continue
+    while len(ans)>0 and ans[-1]<num[i] and n>0:
+        ans.pop()
+        n-=1
+    ans.append(num[i])
+
+mystring=''
+for i in range(total):
+    mystring+=ans[i]
+
+print(mystring)
