@@ -1,0 +1,36 @@
+## input
+3+5*2/(7-2)
+
+## question
+Make postfix expression using given infix expression
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+a=str(input())
+stack=[]
+postfix=''
+
+for i in range(len(a)):
+    if a[i].isdecimal():
+        postfix+=a[i]
+    else:
+        if a[i]=='(':
+            stack.append(a[i])
+        elif a[i]=='+' or a[i]=='-':
+            while stack and stack[-1]!='(':
+                postfix+=stack.pop()
+            stack.append(a[i])
+        elif a[i]=='*' or a[i]=='/':
+            while stack and (stack[-1]=='*' or stack[-1]=='/'):
+                postfix+=stack.pop()
+            stack.append(a[i])
+        else:
+            while stack and stack[-1]!='(':
+                postfix+=stack.pop()
+            stack.pop()
+
+while stack:
+    postfix+=stack.pop()
+
+print(postfix)
