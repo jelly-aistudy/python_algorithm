@@ -1,0 +1,24 @@
+## input
+8 3 # n, k
+
+## question
+If there are n princes who want to go save princess,
+let them sit in round and kth prince clockwise will be out.
+Find out the last prince who will go save the princess
+
+import sys
+from collections import deque
+sys.stdin=open("input.txt","rt")
+
+n,k=map(int, input().split())
+prince=[x+1 for x in range(n)]
+prince=deque(prince)
+
+while len(prince)!=1:
+    for i in range(k):
+        if i==k-1:
+            prince.popleft()
+        else:
+            prince.append(prince.popleft())
+
+print(prince[0])
