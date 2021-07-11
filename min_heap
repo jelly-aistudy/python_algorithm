@@ -1,0 +1,34 @@
+## input
+5
+3
+6
+0
+5
+0
+2
+4
+0
+-1
+
+## question
+If input is natural number, enter it into minimum heap.
+If input is 0, print minimum value from the heap.
+If input is -1, exit the program.
+
+import sys
+sys.stdin=open("input.txt","rt")
+import heapq
+
+hq=list()
+
+while True:
+    tmp=int(input())
+    if tmp==-1:
+        break
+    elif tmp==0:
+        if len(hq)==0:
+            print(-1)
+        else:
+            print(heapq.heappop(hq))
+    else:
+        heapq.heappush(hq, tmp)
