@@ -1,0 +1,38 @@
+## input
+AbaAeCe
+baeeACA
+
+## question
+Anagram means that two strings have same components (alphabet and its numbers) 
+In this case, order doesn't matter.
+Figure out whether two strings are anagrams or not.
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+a=input()
+b=input()
+c=dict()
+d=dict()
+
+for x in a:
+    if x in c:
+        c[x]+=1
+    else:
+        c[x]=1
+
+for y in b:
+    if y in d: 
+        d[y]+=1
+    else:
+        d[y]=1
+
+for n in c:
+    if n in d and c[n]==d[n]:
+        c[n]=0 
+        d[n]=0
+    else:
+        print("NO")
+        break
+else:
+    print("YES")
