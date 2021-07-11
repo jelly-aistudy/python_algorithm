@@ -1,0 +1,29 @@
+## input
+5 # n
+big # word to use in a poem
+good
+sky
+blue
+mouse
+sky # word used in a poem
+good
+mouse
+big
+
+## question
+Only one word will not be used in a poem. Find out that word.
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+n=int(input())
+note={}
+
+for i in range(n):
+    note[input()]=1
+
+for i in range(n-1):
+    del note[input()]
+
+for key in note.keys():
+    print(key)
