@@ -1,0 +1,31 @@
+## input
+5
+3
+6
+0
+5
+0
+2
+4
+0
+-1
+
+## question
+If input is natural number, enter the number into maximum heap.
+If input is 0, print out the maximum value.
+If input is -1, exit the program.
+
+import sys
+sys.stdin=open("input.txt","rt")
+import heapq
+
+hq=list()
+
+while True:
+    tmp=int(input())
+    if tmp==-1:
+        break
+    if tmp==0:
+        print(heapq.heappop(hq)[1])
+    else:
+        heapq.heappush(hq, (tmp*(-1), tmp))
