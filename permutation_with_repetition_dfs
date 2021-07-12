@@ -1,0 +1,35 @@
+## input
+3 2 # n,m
+
+## question
+There are beads with number 1 to n. 
+Find out all cases of picking up beads m times (allow repetition)
+
+import sys
+sys.stdin=open("input.txt","rt")
+input=sys.stdin.readline # read fast
+# if input is string type, use as "s=input().rstrip()" 
+
+def DFS(L):
+    global cnt
+    if L==m:
+        for x in a:
+            print(x, end=' ')
+        print()
+        cnt+=1
+        # Be careful to use 'return'
+        # If you don't want to spread branches then use reutrn
+        # However if you are at the endpoint (end node), the function will be closed with 'return'
+    else:
+        for i in range(1, n+1):
+            a.append(i)
+            DFS(L+1)
+            a.pop(-1)
+    
+
+if __name__=="__main__":
+    n, m=map(int, input().split())
+    a=list()
+    cnt=0
+    DFS(0) # don't need to put list as parameter
+    print(cnt)
