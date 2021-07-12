@@ -1,0 +1,22 @@
+## input
+11
+
+## question
+Print out binary number of the given number
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+n=int(input())
+
+def DFS(x):
+    mok=x//2
+    nam=x%2
+    if mok==1:
+        print(mok, end='')
+        print(nam, end='')
+    if mok>1:
+        DFS(mok)
+        print(nam, end='')
+
+DFS(n)
