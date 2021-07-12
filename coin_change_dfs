@@ -1,0 +1,35 @@
+## input
+3 # n (coin type number)
+1 2 5 # coin type
+15 # change
+
+## question
+Print out the minimum number of coins for change
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+def DFS(L, tsum):
+    global cnt
+    if tsum>m:
+        return
+    if L>cnt: # L=number of coins
+        print(cnt)
+        sys.exit(0)
+    if tsum==m and L<cnt:
+        cnt=L
+    else:
+        for i in range(n):
+            tsum+=a[i]
+            DFS(L+1, tsum)
+            tsum-=a[i]
+
+
+if __name__=='__main__':
+    n=int(input())
+    a=list(map(int, input().split()))
+    m=int(input())
+    a.sort(reverse=True)
+    cnt=214700000
+    tsum=0
+    DFS(0, tsum)
