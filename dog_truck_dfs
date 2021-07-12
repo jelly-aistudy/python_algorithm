@@ -1,0 +1,37 @@
+## input
+259 5 # c,n
+81 # w
+58
+42
+33
+61
+
+## question
+The truck cannot load more than c kgs. 
+With n dogs with each weight (w), Find out the maximum weight the truck can load.
+
+def DFS(L, sum, tsum):
+    global result
+    if sum+(total-tsum)<result:
+        return
+        # If all values from remaining levels are added to the current sum and it is smaller than current maximum value
+        # we don't need to check below levels, so return 
+    if sum>c:
+        return
+    if L==n: # endpoint (subset)
+        if sum>result:
+            result=sum
+    else:
+        DFS(L+1, sum+a[L], tsum+a[L])
+        DFS(L+1, sum, tsum+a[L])
+        # tsum: all values until L (level)
+
+if __name__=="__main__":
+    c, n=map(int, input().split())
+    a=[0]*n
+    result=-214700000
+    for i in range(n):
+        a[i]=int(input())
+    total=sum(a)
+    DFS(0,0,0)
+    print(result)
