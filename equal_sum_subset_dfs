@@ -1,0 +1,43 @@
+## input
+6 # n
+1 3 5 6 7 10 # elements
+
+## question
+If the given set is split into two subsets and the sum of each set is equal to each other, print "YES". Otherwise, print "NO"
+For example, if the given set is {1,3,5,6,7,10}, {1,3,5,7}={6,10} so print "YES"
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+def DFS(x):
+    global flag
+    if flag=="Y":
+        return
+    if x==n:
+        suma=0
+        sumb=0
+        for i in range(n):
+            if ch[i]==0:
+                suma+=a[i]
+            else:
+                sumb+=a[i]
+        if suma==sumb:
+            flag="Y"
+            return
+    else:
+        ch[x]=1
+        DFS(x+1)
+        ch[x]=0
+        DFS(x+1)
+
+
+if __name__=='__main__':
+    n=int(input())
+    a=list(map(int, input().split()))
+    ch=[0]*(n)
+    flag="N"
+    DFS(0)
+    if flag!="Y":
+        print("NO")
+    else:
+        print("YES")
