@@ -1,0 +1,29 @@
+## input
+3 # k
+1 5 7 # weight
+
+## question
+S is total sum of given weights.
+Using balances and weights, count cases of unmeasurable water weight.
+
+## check 3 cases : put weights on left or side of balances, or don't put weights on balances
+## + when left, - when right
+## if there is - value, + value will appear symmetrically
+def DFS(L, summ): # L is index for G
+    global res
+    if L==n:
+        if 0<summ<=s:
+            res.add(sum)
+    else:
+        DFS(L+1, summ+G[L])
+        DFS(L+1, summ-G[L])
+        DFS(L+1, summ)
+
+
+if __name__=='__main__':
+    n=int(input())
+    G=list(map(int, input().split()))
+    s=sum(G)
+    res=set()
+    DFS(0,0)
+    print(s-len(res))
