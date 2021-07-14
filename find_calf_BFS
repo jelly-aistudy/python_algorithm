@@ -1,0 +1,31 @@
+## input
+5 14 # s,e (your coordinate, calf's coordinate)
+
+## question
+To find missing calf, you can use a pogo stick. You can jump +1, -1, +5. 
+Find out minimum number jumps you can make to find a calf.
+(coordinates from 1 to 10,000)
+
+import sys
+sys.stdin=open("input.txt","rt")
+from collections import deque
+
+MAX=10000
+n,m=map(int, input().split())
+dis=[0]*(MAX+1)
+ch=[0]*(MAX+1)
+ch[n]=1
+dis[n]=0
+dQ = deque()
+dQ.append(n)
+while dQ:
+    now=dQ.popleft()
+    if now==m:
+        break
+    for next in (now-1, now+1, now+5):
+        if 0<next<=MAX:
+            if ch[next]==0:
+                dQ.append(next)
+                ch[next]=1
+                dis[next]=dis[now]+1
+print(dis[m])
