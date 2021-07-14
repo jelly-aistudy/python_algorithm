@@ -1,0 +1,35 @@
+## input
+25114
+
+## question
+If A to 1, B to 2, ... Z to 26 and make secret codes, there will be various ways to decode number to alphabet.
+With given number, find out all possible decoding cases.
+0 = exit program
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+def DFS(L, tmp):
+    global cnt
+    if L==len(n):
+        print(tmp)
+        cnt+=1
+        return
+    if int(n[L])==0:
+        return
+    else:
+        DFS(L+1, tmp+alpha[int(n[L])])
+        if L+1<len(n) and (int(n[L]+n[L+1])<26):
+            DFS(L+2, tmp+alpha[int(n[L]+n[L+1])])
+
+
+if __name__=='__main__':
+    n=list(map(str, input()))
+    alpha=[0]
+    #print(ord("Z"))
+    #print(chr(65))
+    for i in range(65, 91):
+        alpha.append(chr(i))
+    cnt=0
+    DFS(0, "")
+    print(cnt)
