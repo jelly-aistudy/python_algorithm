@@ -1,0 +1,38 @@
+## input
+20 # amount of money (bill)
+3 # number of coin type
+5 3 # amount, number
+10 2
+1 5
+
+## question
+Count cases of exchange bill into coins.
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+def DFS(L, summ):
+    global cnt
+    if summ==t:
+        cnt+=1
+        return
+    if summ>t:
+        return
+    if L==k:
+        return
+    else:
+        for i in range(n[L]+1):
+            DFS(L+1, summ+(p[L]*i))
+
+if __name__=='__main__':
+    t=int(input())
+    k=int(input())
+    p=list()
+    n=list()
+    for _ in range(k):
+        a,b=map(int,input().split())
+        p.append(a)
+        n.append(b)
+    cnt=0
+    DFS(0,0)
+    print(cnt)
