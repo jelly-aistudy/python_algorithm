@@ -1,0 +1,45 @@
+## input
+0 0 0 0 0 0 0
+0 1 1 1 1 1 0
+0 0 0 1 0 0 0
+1 1 0 1 0 1 1
+1 1 0 1 0 0 0
+1 0 0 0 1 0 0
+1 0 1 0 0 0 0
+
+## question
+With 7X7 grid, start point is (1,1) and end point is (7,7)
+You can move up, down, left, right. 
+Find out shortest number of space on the grid. If you can't reach end point, print -1.
+0 is route, 1 is wall
+
+import sys
+sys.stdin=open("input.txt","rt")
+from collections import deque
+
+a=[list(map(int, input().split())) for _ in range(7)]
+dx=[0,1,0,-1]
+dy=[1,0,-1,0]
+st=0
+ed=0
+ch=[[0]*7 for _ in range(7)]
+ch[0][0]=1
+cnt=0
+dq = deque()
+dq.append((0,0,0))
+ans=list()
+
+while dq:
+    st,ed,cnt=dq.popleft()
+    if st==6 and ed==6:
+        ans.append(cnt)
+        break
+    for i in range(4):
+        if 0<=st+dx[i]<7 and 0<=ed+dy[i]<7 and ch[st+dx[i]][ed+dy[i]]==0 and a[st+dx[i]][ed+dy[i]]==0:
+            ch[st+dx[i]][ed+dy[i]]=1
+            dq.append((st+dx[i],ed+dy[i],cnt+1))
+
+if len(ans)>0:
+    print(min(ans))
+else:
+    print(-1)
