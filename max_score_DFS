@@ -1,0 +1,35 @@
+## input
+5 20 # n, m (questions, time limit)
+10 5 # score, time
+25 12
+15 8
+6 3
+7 4
+
+## question
+With the limited time m, how to get maximum score?
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+def DFS(L, summ, time):
+    global score
+    if time>m:
+        return
+    if L==n:
+        if summ>score:
+            score=summ
+    else:
+        DFS(L+1, summ+(q[L][0]), time+(q[L][1]))
+        DFS(L+1, summ, time)
+
+
+if __name__=='__main__':
+    n,m=map(int, input().split())
+    q=list()
+    for _ in range(n):
+        a,b=map(int, input().split())
+        q.append((a,b))
+    score=0
+    DFS(0, 0, 0)
+    print(score)
