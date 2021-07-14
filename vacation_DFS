@@ -1,0 +1,41 @@
+## input
+7 # n
+4 20 # t,p
+2 10
+3 15
+3 20
+2 30
+2 20
+1 10
+
+## question
+A counseller wants to earn maximum amount of money for n days. 
+T is days consumed for the counselling and P is amount of money paid for the counselling.
+Find out maximum amount of money the counseller can earn.
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+def DFS(L, summ):
+    global maxx
+    if L>n:
+        return
+    if L==n:
+        if summ>maxx:
+            maxx=summ
+    else:
+        DFS(L+time[L], summ+profit[L])
+        DFS(L+1, summ)
+
+
+if __name__=='__main__':
+    n=int(input())
+    time=list()
+    profit=list()
+    for _ in range(n):
+        a,b=map(int, input().split())
+        time.append(a)
+        profit.append(b)
+    maxx=0
+    DFS(0, 0)
+    print(maxx)
