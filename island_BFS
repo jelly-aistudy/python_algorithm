@@ -1,0 +1,43 @@
+## input
+7 # n
+1 1 0 0 0 1 0
+0 1 1 0 1 1 0
+0 1 0 0 0 0 0
+0 0 0 1 0 1 1
+1 1 0 1 1 0 0
+1 0 0 0 1 0 0
+1 0 1 0 1 0 0
+
+## question
+1 is island, 0 is sea.
+Each island is connected to other islands (up, down, left, right, diagonal)
+Count how many islands on the map (if islands are connected, they are counted as 1 island)
+
+
+import sys
+sys.stdin=open("input.txt","rt")
+from collections import deque
+
+dx=[1,1,1,0,0,-1,-1,-1]
+dy=[0,1,-1,-1,1,0,1,-1]
+
+dq=deque()
+n=int(input())
+a=[list(map(int, input().split())) for _ in range(n)]
+cnt=0
+
+for i in range(n):
+    for j in range(n):
+        if a[i][j]==1:
+            a[i][j]=0
+            dq.append((i,j))
+            cnt+=1
+            while dq:
+                x,y=dq.popleft()
+                for k in range(8):
+                    xx=x+dx[k]
+                    yy=y+dy[k]
+                    if 0<=xx<n and 0<=yy<n and a[xx][yy]==1:
+                        a[xx][yy]=0
+                        dq.append((xx,yy))
+print(cnt)
