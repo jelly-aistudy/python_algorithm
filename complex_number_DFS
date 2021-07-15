@@ -1,0 +1,53 @@
+## input
+7
+0110100
+0110101
+1110101
+0000111
+0100000
+0111110
+0111000
+
+## question
+On the map, 1 means house and 0 means empty.
+Connect houses which are located up, down, left, right and define those houses as one complex.
+Count how many complexes can be made on the map and print out how many houses are in each complex (ascending order)
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+dx=[1,0,-1,0]
+dy=[0,1,0,-1]
+
+def DFS(x,y,st):
+    for i in range(4):
+        xx=x+dx[i]
+        yy=y+dy[i]
+        if 0<=xx<n and 0<=yy<n and a[xx][yy]==1:
+            a[xx][yy]=st
+            DFS(xx,yy,st)
+
+            
+if __name__=="__main__":
+    n=int(input())
+    a=[list(map(int, input())) for _ in range(n)]
+    st=2 # complex number starting from 2 to make difference from provided 0,1 on the map
+    ch=list()
+
+    for i in range(n):
+        for j in range(n):
+            if a[i][j]==1:
+                a[i][j]=st # set complex number
+                DFS(i,j,st)
+                ch.append(st)
+                st+=1
+
+    print(len(ch)) # number of complex
+    answer=[0]*len(ch)
+    for m in range(n):
+        for k in range(n):
+            if a[m][k]!=0:
+                answer[a[m][k]-2]+=1 # count houses
+    answer.sort()
+    for l in answer:
+        print(l)
