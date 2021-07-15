@@ -1,0 +1,39 @@
+## input
+0 0 0 0 0 0 0
+0 1 1 1 1 1 0
+0 0 0 1 0 0 0
+1 1 0 1 0 1 1
+1 1 0 0 0 0 1
+1 1 0 1 1 0 0
+1 0 0 0 0 0 0
+
+## question
+From (1,1), count how many ways to get (7,7)
+0 = route, 1 = wall
+You can only move up, down, left, right
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+def DFS(st,ed):
+    global cnt
+    if st==6 and ed==6:
+        cnt+=1
+    else:
+        for i in range(4):
+            if 0<=st+dx[i]<=6 and 0<=ed+dy[i]<=6 and a[st+dx[i]][ed+dy[i]]==0:
+                a[st+dx[i]][ed+dy[i]]=1
+                ans.append((st,ed))
+                DFS(st+dx[i], ed+dy[i])
+                a[st+dx[i]][ed+dy[i]]=0
+                ans.pop(-1)
+            
+if __name__=="__main__":
+    a=[list(map(int, input().split())) for _ in range(7)]
+    cnt=0
+    ans=list()
+    dx=[0,1,0,-1]
+    dy=[1,0,-1,0]
+    a[0][0]=1
+    DFS(0,0)
+    print(cnt)
