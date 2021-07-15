@@ -1,0 +1,54 @@
+## input
+5 # n (nxn grid)
+2 23 92 78 93
+59 50 48 90 80
+30 53 70 75 96
+94 91 82 89 93
+97 98 95 96 100
+
+## question
+The starting point of hiking should be the lowest of all, and the end point the highest.
+You can only move up, left, right, down. 
+Count how many hiking routes you can make with given grid.
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+dx=[1,0,-1,0]
+dy=[0,1,0,-1]
+
+def DFS(x,y):
+    global cnt
+    if x==edx and y==edy:
+        cnt+=1
+    else:
+        for i in range(4):
+            xx=x+dx[i]
+            yy=y+dy[i]
+            if 0<=xx<=n-1 and 0<=yy<=n-1 and a[xx][yy]>a[x][y] and ch[xx][yy]==0:
+                ch[xx][yy]=1
+                DFS(xx,yy)
+                ch[xx][yy]=0
+                # ch might be unnecessary because you can only move to higher point
+
+            
+if __name__=="__main__":
+    n=int(input())
+    a=[list(map(int, input().split())) for _ in range(n)]
+    cnt=0
+    ch=[[0]*n for _ in range(n)] 
+    ch[0][0]=1
+    stx,sty=0,0 # start point
+    edx,edy=0,0 # endpoint
+    tmpMin=214700000
+    tmpMax=-1
+    for i in range(n): # find out start point and end point
+        for j in range(n):
+            if a[i][j]<tmpMin:
+                stx, sty=i,j
+                tmpMin=a[i][j]
+            if a[i][j]>tmpMax:
+                edx,edy=i,j
+                tmpMax=a[i][j]
+    DFS(stx,sty)
+    print(cnt)
