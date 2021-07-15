@@ -1,0 +1,53 @@
+## input
+5 # n (nxn grid)
+6 8 2 6 2
+3 2 3 4 6
+6 7 3 3 2
+7 2 5 3 6
+8 9 5 2 7
+
+## question
+Find out maximum number of safe area in raining seasons
+
+import sys
+sys.stdin=open("input.txt","rt")
+from collections import deque
+
+dx=[1,0,-1,0]
+dy=[0,1,0,-1]
+
+n=int(input())
+a=[list(map(int, input().split())) for _ in range(n)]
+
+maxCnt=0
+minHgt=101 # 1<=height<=100
+maxHgt=0
+
+for i in range(n):
+    for j in range(n):
+        if a[i][j]<minHgt: # find out minimum height and maximum height from the grid
+            minHgt=a[i][j]
+        if a[i][j]>maxHgt:
+            maxHgt=a[i][j]
+
+for k in range(minHgt, maxHgt):
+    dq=deque()
+    cnt=0
+    ch=[[0]*n for _ in range(n)] # check
+    for i in range(n):
+        for j in range(n):
+            if a[i][j]-k>0 and ch[i][j]==0:
+                dq.append((i,j))
+                ch[i][j]=1
+                cnt+=1
+                while dq:
+                    x,y=dq.popleft()
+                    for m in range(4):
+                        xx=x+dx[m]
+                        yy=y+dy[m]
+                        if 0<=xx<n and 0<=yy<n and a[xx][yy]-k>0 and ch[xx][yy]==0:
+                            dq.append((xx,yy))
+                            ch[xx][yy]=1
+    if cnt>maxCnt:
+        maxCnt=cnt
+print(maxCnt)
