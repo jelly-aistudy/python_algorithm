@@ -1,0 +1,45 @@
+## input
+6 4 # m,n (m = column / n = row)
+0 0 -1 0 0 0 # 1 = ripen, 0 = not ripen, -1 = empty
+0 0 1 0 -1 0
+0 0 -1 0 0 0
+0 0 0 0 -1 1
+
+## question
+If there are ripen tomatoes in the box, other tomatoes located in up, down, left, right side will be ripen on day after.
+Find out minimum days when all tomatoes in the box will be ripen. 
+If all tomatoes are ripen from the beginning, print 0, else if at least one tomato cannot be mature, print -1.
+
+import sys
+sys.stdin=open("input.txt","rt")
+from collections import deque
+
+dx=[1,0,-1,0]
+dy=[0,1,0,-1]
+
+m, n=map(int, input().split())
+a=[list(map(int, input().split())) for _ in range(n)]
+dq=deque()
+cnt=0
+
+for i in range(n):
+    for j in range(m):
+        if a[i][j]==1:
+            dq.append((i,j,cnt)) # find starting point
+
+while dq:
+    x,y,count=dq.popleft()
+    if count>cnt:
+        cnt=count
+    for i in range(4):
+        xx=x+dx[i]
+        yy=y+dy[i]
+        if 0<=xx<n and 0<=yy<m and a[xx][yy]==0:
+            a[xx][yy]=1
+            dq.append((xx,yy,count+1))
+
+for i in range(n):
+    for j in range(m):
+        if a[i][j]==0:
+            cnt=-1 # if not all tomatoes can be mature
+print(cnt)
