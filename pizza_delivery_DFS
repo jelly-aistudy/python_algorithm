@@ -1,0 +1,59 @@
+## input
+4 4 # n,m (nxn map, m pizza stores)
+0 1 2 0
+1 0 2 1
+0 2 1 2
+2 0 1 2
+
+## question
+0 = empty, 1 = house, 2 = pizza store
+Pizza delivery distance is defined as the minimum distance between pizza store and house (|x1-x2|)+(|y1-y2|)
+Only m pizza stores can run in this city, so pizza stores which have minimum delivery distance will survive.
+Print minimum pizza delivery distance when m pizza stores chosen.
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+# select m pizza houses
+def pDFS(L,tmp):
+    if L==len(pizza):
+        if len(tmp)==m:
+            tmp2=list(tmp) # to hinder error regarding memory
+            spizza.append(tmp2)
+    else:
+        tmp.append(pizza[L])
+        pDFS(L+1, tmp) # if use tmp.append(L) as input, append method will return Nonetype not list
+        tmp.pop(-1)
+        pDFS(L+1, tmp)
+        
+    
+if __name__=='__main__':
+    n,m=map(int, input().split())
+    a=[list(map(int, input().split())) for _ in range(n)]
+    pizza=list()
+    home=list()
+    for i in range(n):
+        for j in range(n):
+            if a[i][j]==2:
+                pizza.append((i,j))
+            if a[i][j]==1:
+                home.append((i,j))
+    tmp=list() # pizza stores selected
+    spizza=list() # all cases of m pizza stores chosen
+    pDFS(0,tmp)
+
+    # calculate pizza delivery distance
+    ans=2147000000
+    for x in spizza:
+        tmpSum=0
+        for y in home:
+            tmp=2147000000
+            for z in x:
+                dis=abs(z[0]-y[0])+abs(z[1]-y[1])
+                if tmp>dis:
+                    tmp=dis
+            tmpSum+=tmp
+        if ans>tmpSum:
+            ans=tmpSum
+
+    print(ans)
