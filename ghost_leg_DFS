@@ -1,0 +1,50 @@
+## input
+1 0 1 0 0 1 0 1 0 1
+1 0 1 1 1 1 0 1 0 1
+1 0 1 0 0 1 0 1 0 1
+1 0 1 0 0 1 0 1 1 1
+1 0 1 0 0 1 0 1 0 1
+1 0 1 1 1 1 0 1 0 1
+1 0 1 0 0 1 0 1 1 1
+1 1 1 0 0 1 0 1 0 1
+1 0 1 0 0 1 1 1 0 1
+1 0 1 0 0 2 0 1 0 1
+
+## question
+To reach specific end point (2), which start point should be chosen?
+ladder = 1, empty = 0
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+dx=[0,0,1] # don't go up
+dy=[1,-1,0]
+
+def DFS(x,y):
+    global res
+    if a[x][y]==2:
+        res=y
+    if x==9:
+        return
+    for i in range(3):
+        xx=x+dx[i]
+        yy=y+dy[i]
+        if 0<=xx<10 and 0<=yy<10 and ch[xx][yy]==0 and a[xx][yy]!=0:
+            ch[xx][yy]=1
+            DFS(xx,yy)
+            break # move to one side (there is only one route for the ladder)
+
+if __name__=="__main__":
+    a=[list(map(int, input().split())) for _ in range(10)]
+    st=list()
+    res=-1
+    for i in range(10):
+        if a[0][i]==1:
+            st.append((0,i))
+    for x,y in st:
+        ch=[[0]*10 for _ in range(10)]
+        ch[x][y]=1
+        DFS(x,y)
+        if res!=-1:
+            print(y)
+            break
