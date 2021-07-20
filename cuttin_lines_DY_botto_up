@@ -1,0 +1,23 @@
+## input
+7 # length n
+
+## question
+If you want to cut given network line with length n into lines of length 1 or 2,
+find out how many ways to cut the given line.
+For example, if you have 4m network line, you can think of these 5 ways.
+1) 1m+1m+1m+1m
+2) 2m+1m+1m
+3) 1m+1m+2m
+4) 1m+2m+1m
+5) 2m+2m
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+n=int(input())
+dy=[0]*(n+1)
+dy[1]=1
+dy[2]=2
+for i in range(3, n+1):
+    dy[i]=dy[i-1]+dy[i-2]
+print(dy[n])
