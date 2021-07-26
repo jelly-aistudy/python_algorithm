@@ -1,0 +1,24 @@
+## input
+8 # n
+5 3 7 8 6 2 9 4
+
+## question
+With n natural numbers, find the longest increasing subsequence.
+Print out the maximum length of increasing subsequence.
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+n=int(input())
+a=list(map(int, input().split()))
+dy=[0]*n
+dy[0]=1
+
+for i in range(1, n):
+    tmp=1
+    for j in range(0, i):
+        if a[j]<a[i]:
+            if dy[j]>=tmp:
+                tmp=dy[j]+1
+    dy[i]=tmp
+print(max(dy))
