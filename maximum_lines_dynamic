@@ -1,0 +1,24 @@
+## input
+10 # n
+4 1 2 3 9 7 5 6 10 8
+
+## question
+The given line (array) can be linked to another array consisting of number 1 to n, ascending order.
+If the same numbers in each array must be connected, what is the maximum number of lines that are not overlapped?
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+n=int(input())
+a=list(map(int, input().split()))
+dy=[0]*n
+dy[0]=1
+
+for i in range(1, n):
+    cnt=0
+    for j in range(0, i):
+        if a[j]<a[i]:
+            cnt=max(cnt, dy[j])
+    cnt+=1
+    dy[i]=cnt
+print(max(dy))
