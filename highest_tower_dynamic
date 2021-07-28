@@ -1,0 +1,39 @@
+## input
+5 # n 
+25 3 4 # width, height, weight
+4 4 6
+9 2 3
+16 2 5
+1 5 2
+
+## question
+With n bricks, make the highest tower.
+Widths and weights of each bricks are all different.
+Height can be same.
+When making a tower, a brick with smaller width or less weight can be piled up.
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+n=int(input())
+arr=list()
+dy=[0]*n
+for _ in range(n):
+    a,b,c=map(int, input().split())
+    arr.append((a,b,c)) # width, height, weight
+
+arr.sort()
+dy[0]=arr[0][1]
+
+for i in range(1, n):
+    temp=arr[i][1]
+    emp=list()
+    for j in range(0, i):
+        if arr[j][2]<arr[i][2]:
+            emp.append(dy[j])
+    if len(emp)!=0:
+        temp+=max(emp)
+    dy[i]=temp
+
+print(max(dy))
+
