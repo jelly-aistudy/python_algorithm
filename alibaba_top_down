@@ -1,0 +1,38 @@
+## input
+5 # n
+3 7 2 1 9
+5 8 3 9 2
+5 3 1 2 3
+5 4 3 2 1 
+1 7 5 2 4
+
+## question
+Alibaba is escaping from theives. 
+He tries to pass a stone bridge with n x n stones.
+Energey will be consumed as the height of each stone.
+The distance must be the shortest, so he can only move to right or down. 
+Find out the minimum amount of energy consumed from 1X1 stone to nXn stone.
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+def DFS(x,y):
+    if dy[x][y]>0: # memoization
+        return dy[x][y]
+    if x==0 and y==0:
+        return arr[0][0]
+    else:
+        if y==0:
+            dy[x][y]=DFS(x-1, y)+arr[x][y]
+        elif x==0:
+            dy[x][y]=DFS(x, y-1)+arr[x][y]
+        else:
+            dy[x][y]=min(DFS(x-1,y), DFS(x,y-1))+arr[x][y]
+        return d[x][y]
+    
+    
+if __name__=="__main__":
+    n=int(input())
+    a=[list(map(int, input().split())) for _ in range(n)]
+    dy=[[0]*n for _ in range(n)]
+    print(DFS(n-1,n-1))
