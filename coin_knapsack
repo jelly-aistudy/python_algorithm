@@ -1,0 +1,20 @@
+## input
+3 # number of coin kinds
+1 2 5 # coin
+15 # money to exchange
+## question
+What is the minimum number of coins that can exchange the given amount of money?
+
+import sys
+sys.stdin=open("input.txt","rt")
+
+n = int(input())
+coin = list(map(int, input().split()))
+money = int(input())
+dy = [2147000000]*(money+1)
+dy[0]=0
+for i in range(n):
+    for j in range(money+1):
+        if j>=coin[i]:
+            dy[j]=min(dy[j], dy[j-coin[i]]+1)            
+print(dy[money])
