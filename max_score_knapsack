@@ -22,3 +22,12 @@ for i in range(1, n+1):
     for j in range(time, m+1):
         dy[i][j]=max(dy[i-1][j], dy[i-1][j-time]+score) 
 print(max(dy[n]))
+
+# To prevent repetition, we can use one dimensional list and check it from the last
+n,m=map(int, input().split())
+dy=[0]*(m+1)
+for i in range(n):
+    ps, pt = map(int, input().split())
+    for j in range(m, pt-1, -1):
+        dy[j]=max(dy[j], dy[j-pt]+ps)
+print(dy[m])
