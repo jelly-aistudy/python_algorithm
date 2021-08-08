@@ -1,0 +1,70 @@
+import time
+import csv
+import random
+import winsound
+
+name = input('What is your name? ')
+print('Hi, ', name, '! Time to play hangman game!')
+print()
+time.sleep(1)
+print('Start Loading....')
+print()
+time.sleep(0.5)
+
+words = []
+with open('./resource/word_list.csv', 'r') as f:
+    reader = csv.reader(f)
+    next(reader) # skip header
+    for c in reader:
+        words.append(c)
+
+random.shuffle(words)
+q = random.choice(words)
+word = q[0].strip() # trim
+hint = q[1].strip()
+
+guesses = '' # guessed characters
+turns = 6
+
+while turns > 0:
+    failed = 0 # failed counts
+
+    for char in word:
+        if char in guesses:
+            print(char, end=' ')
+        else:
+            print('_', end=' ')
+            failed += 1
+
+    if failed == 0: # guess succeeded
+        print()
+        print()
+        winsound.PlaySound('./sound/good.wav', winsound.SND_FILENAME)
+        print('Congratulations! The Guesses is correct.')
+        break
+    print()
+
+    print()
+    print('Hint : {}'.format(hint))
+    guess = input('Guess a character. You must guess only one character each time.')
+
+    if len(guess) != 1:
+        print('Please enter only one character!')
+        print()
+        continue
+    if guess in guesses:
+        print('You already try that character. Please try another one!')
+        print()
+        continue
+
+    guesses += guess
+
+    if guess not in word:
+        turns -= 1
+        print('Oops! Wrong')
+        print('You have', turns, ' more guesses')
+        print()
+
+    if turns == 0:
+        winsound.PlaySound('./sound/bad.wav', winsound.SND_FILENAME)
+        print("You hangman game failed. Bye!")
